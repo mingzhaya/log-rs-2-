@@ -1,0 +1,14 @@
+<table class="table table-hover">
+    <tr>
+        <td>
+            <a href="{{ url_for('user', username=mapdrop.player.username) }}">
+                {{ mapdrop.player.username }}
+            </a>
+             | Run #{{ mapdrop.run }}:
+            {{ mapdrop.map }} map, {{ mapdrop.gold_map }} gold map, {{ mapdrop.rouge }} Rouge
+        </td>
+        <td align="right">
+            {{ moment(mapdrop.time).format('MMM DD HH:mm:ss') }}
+        </td>
+    </tr>
+</table>
