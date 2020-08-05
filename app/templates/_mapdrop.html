@@ -1,10 +1,13 @@
 <table class="table table-hover">
     <tr>
         <td>
+            {% if show_name %}
             <a href="{{ url_for('user', username=mapdrop.player.username) }}">
                 {{ mapdrop.player.username }}
             </a>
-             | Run #{{ mapdrop.run }}:
+             | 
+            {% endif %}
+            Run #{{ mapdrop.run }}:
             {{ mapdrop.map }} map, {{ mapdrop.gold_map }} gold map, {{ mapdrop.rouge }} Rouge
         </td>
         <td align="right">
