@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+    <h1>User: {{ user.username }}</h1>
+    {% if user.last_seen %}
+    <p>Last seen on: {{ moment(user.last_seen).format('LLL') }}</p>
+    {% endif %}
+    <p>
+        Map: {{ maps }}<br>
+        Gold: {{ gold_maps }}<br>
+        Rouge: {{ rouges }}
+    </p>
+    <hr>
+    {% for mapdrop in mapdrops %}
+        {% include "_mapdrop.html" %}
+    {% endfor %}
+    {% if prev_url %}
+    <a href="{{ prev_url }}">Prev</a>
+    {% endif %}
+    {% if next_url %}
+    <a href="{{ next_url }}">Next</a>
+    {% endif %}
+{% endblock %}
