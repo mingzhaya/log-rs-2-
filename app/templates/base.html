@@ -1,7 +1,8 @@
 {% extends 'bootstrap/base.html' %}
 
 {% block title %}
-        RS
+    RS
+    {% if title %} - {{ title }}{% endif %}
 {% endblock %}
 
 {% block navbar %}

@@ -1,7 +1,7 @@
 <table class="table table-hover">
     <tr>
         <td>
-            {% if show_name %}
+            {% if user_unknown %}
             <a href="{{ url_for('user', username=mapdrop.player.username) }}">
                 {{ mapdrop.player.username }}
             </a>

@@ -14,10 +14,20 @@
     {% for mapdrop in mapdrops %}
         {% include "_mapdrop.html" %}
     {% endfor %}
-    {% if prev_url %}
-    <a href="{{ prev_url }}">Prev</a>
-    {% endif %}
-    {% if next_url %}
-    <a href="{{ next_url }}">Next</a>
+    {% if prev_url or next_url %}
+    <nav aria-label="...">
+        <ul class="pager">
+            <li class="previous{% if not prev_url %} disabled{% endif %}">
+                <a href="{{ prev_url or '#' }}">
+                    <span aria-hidden="true">&larr;</span> Prev
+                </a>
+            </li>
+            <li class="next{% if not next_url %} disabled{% endif %}">
+                <a href="{{ next_url or '#' }}">
+                    <span aria-hidden="true">&rarr;</span> Next
+                </a>
+            </li>
+        </ul>
+    </nav>
     {% endif %}
 {% endblock %}

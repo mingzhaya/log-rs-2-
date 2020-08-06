@@ -51,13 +51,20 @@ def entry():
             db.session.add(md)
             db.session.commit()
             return redirect(url_for('entry'))
-    return render_template('index.html', mapdrops=mapdrops, form=form)
+    return render_template('entry.html', title='Entry', mapdrops=mapdrops, form=form)
 
 @app.route('/explore')
 @login_required
 def explore():
     page = request.args.get('page', 1, type=int)
-    return render_template('index.html', title='Exploration')
+    mapdrops = MapDrop.query.order_by(MapDrop.time.desc()).paginate(page, app.config['MAPDROPS_PER_PAGE'], False)
+    next_url = prev_url = None
+    if mapdrops.has_next:
+        next_url = url_for('explore', page=mapdrops.next_num)
+    if mapdrops.has_prev:
+        prev_url = url_for('explore', page=mapdrops.prev_num)
+    return render_template('entry.html', title='Explore', user_unknown=True, mapdrops=mapdrops.items, 
+                            next_url=next_url, prev_url=prev_url)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -98,7 +105,7 @@ def user(username):
         next_url = url_for('user', username=user.username, page=mapdrops.next_num)
     if mapdrops.has_prev:
         prev_url = url_for('user', username=user.username, page=mapdrops.prev_num)
-    return render_template('user.html', user=user, maps=maps, gold_maps=gold_maps, rouges=rouges,
+    return render_template('user.html', title='Profile', user=user, maps=maps, gold_maps=gold_maps, rouges=rouges,
                             mapdrops=mapdrops.items, next_url=next_url, prev_url=prev_url)
 
 @app.before_request
