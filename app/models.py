@@ -51,4 +51,4 @@ class Quest(db.Model):
     item_drops = db.relationship('ItemDrop', backref='quest', lazy='dynamic')
 
     def __repr__(self):
-        return '<Quest {}>'.format(self.name)
+        return '<Quest {}: {}>'.format(self.id, self.name)
