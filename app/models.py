@@ -35,3 +35,20 @@ class MapDrop(db.Model):
 
     def __repr__(self):
         return '<Run {} from user {}>'.format(self.run, self.user_id)
+
+class ItemDrop(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    item_name = db.Column(db.String(64))
+    item_count = db.Column(db.Integer)
+    quest_id = db.Column(db.Integer, db.ForeignKey('quest.id'))
+
+    def __repr__(self):
+        return '<Item {} x{} from quest {}>'.format(self.item_name, self.item_count, self.quest_id)
+
+class Quest(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(128), unique=True)
+    item_drops = db.relationship('ItemDrop', backref='quest', lazy='dynamic')
+
+    def __repr__(self):
+        return '<Quest {}>'.format(self.name)
