@@ -6,11 +6,30 @@
     <p>Last seen on: {{ moment(user.last_seen).format('LLL') }}</p>
     {% endif %}
     <table class="table table-hover">
-        <tr>
-            <td>Map: {{ maps }}</td>
-            <td>Gold: {{ gold_maps }}</td>
-            <td>Rouge: {{ rouges }}</td>
-        </tr>
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Total</th>
+                <th scope="col">Remaining</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td align="center">Map:</td>
+                <td>{{ maps }}</td>
+                <td>{{ maps }}</td>
+            </tr>
+            <tr>
+                <td align="center">Gold:</td>
+                <td>{{ gold_maps }}</td>
+                <td>{{ gold_maps }}</td>
+            </tr>
+            <tr>
+                <td align="center">Rouge:</td>
+                <td>{{ rouges }}</td>
+                <td>{{ rouges }}</td>
+            </tr>
+        </tbody>
     </table>
     <hr>
     {% for mapdrop in mapdrops %}
