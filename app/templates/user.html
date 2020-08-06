@@ -5,11 +5,13 @@
     {% if user.last_seen %}
     <p>Last seen on: {{ moment(user.last_seen).format('LLL') }}</p>
     {% endif %}
-    <p>
-        Map: {{ maps }}<br>
-        Gold: {{ gold_maps }}<br>
-        Rouge: {{ rouges }}
-    </p>
+    <table class="table table-hover">
+        <tr>
+            <td>Map: {{ maps }}</td>
+            <td>Gold: {{ gold_maps }}</td>
+            <td>Rouge: {{ rouges }}</td>
+        </tr>
+    </table>
     <hr>
     {% for mapdrop in mapdrops %}
         {% include "_mapdrop.html" %}
