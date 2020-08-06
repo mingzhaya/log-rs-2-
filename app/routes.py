@@ -11,7 +11,7 @@ from app.models import User, MapDrop
 def index():
     return redirect(url_for('user', username=current_user.username))
 
-@app.route('/entry', methods=['GET', 'POST'])
+@app.route('/entry/map', methods=['GET', 'POST'])
 @login_required
 def entry():
     mapdrops = current_user.map_drops.order_by(MapDrop.time.desc()).limit(app.config['MAPDROPS_PER_PAGE']).all()
