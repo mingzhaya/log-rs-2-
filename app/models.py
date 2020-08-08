@@ -35,7 +35,8 @@ class MapDrop(db.Model):
     run = db.Column(db.Integer)
 
     def __repr__(self):
-        return '<Run {} from user {}>'.format(self.run, self.user_id)
+        return '<Run {} from {}: ({}, {}. {})>'.format(self.run, self.player.username, 
+                                                        self.map, self.gold_map, self.rouge)
 
 class ItemDrop(db.Model):
     id = db.Column(db.Integer, primary_key=True)
