@@ -4,7 +4,7 @@ from werkzeug.urls import url_parse
 from datetime import datetime
 from app import app, db
 from app.forms import LoginForm, MapDropForm
-from app.models import User, MapDrop
+from app.models import User, MapDrop, TreasureDrop
 
 @app.route('/')
 @login_required
@@ -99,6 +99,9 @@ def user(username):
     maps = db.session.query(db.func.sum(MapDrop.map)).filter_by(user_id=user.id).scalar()
     gold_maps = db.session.query(db.func.sum(MapDrop.gold_map)).filter_by(user_id=user.id).scalar()
     rouges = db.session.query(db.func.sum(MapDrop.rouge)).filter_by(user_id=user.id).scalar()
+    map_remain = maps - user.treasure_drops.filter_by(quest_id=1).count() * 50 - \
+                    user.treasure_drops.filter_by(quest_id=2).count() * 250
+    gold_remain = gold_maps - user.treasure_drops.filter_by(quest_id=3).count()
     mapdrops = user.map_drops.order_by(MapDrop.time.desc()).paginate(page, app.config['MAPDROPS_PER_PAGE'], False)
     next_url = prev_url = None
     if mapdrops.has_next:
@@ -106,7 +109,8 @@ def user(username):
     if mapdrops.has_prev:
         prev_url = url_for('user', username=user.username, page=mapdrops.prev_num)
     return render_template('user.html', title='Profile', user=user, maps=maps, gold_maps=gold_maps, rouges=rouges,
-                            mapdrops=mapdrops.items, next_url=next_url, prev_url=prev_url)
+                            map_remain=map_remain, gold_remain=gold_remain, mapdrops=mapdrops.items, 
+                            next_url=next_url, prev_url=prev_url)
 
 @app.before_request
 def before_request():

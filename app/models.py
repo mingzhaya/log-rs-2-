@@ -10,6 +10,7 @@ class User(UserMixin, db.Model):
     password_hash = db.Column(db.String(128))
     last_seen = db.Column(db.DateTime, default=datetime.utcnow)
     map_drops = db.relationship('MapDrop', backref='player', lazy='dynamic')
+    treasure_drops = db.relationship('TreasureDrop', backref='player', lazy='dynamic')
 
     def __repr__(self):
         return '<User {} reporting>'.format(self.username)
@@ -52,3 +53,21 @@ class Quest(db.Model):
 
     def __repr__(self):
         return '<Quest {}: {}>'.format(self.id, self.name)
+
+class TreasureDrop(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    quest_id = db.Column(db.Integer, db.ForeignKey('quest.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    drop1 = db.Column(db.Integer, db.ForeignKey('item_drop.id'))
+    drop2 = db.Column(db.Integer, db.ForeignKey('item_drop.id'))
+    drop3 = db.Column(db.Integer, db.ForeignKey('item_drop.id'))
+    drop4 = db.Column(db.Integer, db.ForeignKey('item_drop.id'))
+    drop5 = db.Column(db.Integer, db.ForeignKey('item_drop.id'))
+    drop6 = db.Column(db.Integer, db.ForeignKey('item_drop.id'))
+    drop7 = db.Column(db.Integer, db.ForeignKey('item_drop.id'))
+    drop8 = db.Column(db.Integer, db.ForeignKey('item_drop.id'))
+    drop9 = db.Column(db.Integer, db.ForeignKey('item_drop.id'))
+    drop10 = db.Column(db.Integer, db.ForeignKey('item_drop.id'))
+
+    def __repr__(self):
+        return '<Quest {} drop by user {}>'.format(self.quest_id, self.user_id)
