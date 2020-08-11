@@ -72,3 +72,11 @@ class TreasureDrop(db.Model):
 
     def __repr__(self):
         return '<Quest {} drop by user {}>'.format(self.quest_id, self.user_id)
+
+class SkillPower(db.Model):
+    name = db.Column(db.String(8), primary_key=True)
+    min_power = db.Column(db.Integer)
+    max_power = db.Column(db.Integer)
+
+    def __repr__(self):
+        return '<{}: {}-{}>'.format(self.name, self.min_power, self.max_power)
